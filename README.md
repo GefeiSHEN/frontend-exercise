@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Frontend Take Home Exercise
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+This is a frontend take home exercise.
 
 ## Setup
 
@@ -22,6 +22,7 @@ pnpm install --shamefully-hoist
 Start the development server on http://localhost:3000
 
 ```bash
+#npm
 npm run dev
 ```
 
@@ -39,4 +40,15 @@ Locally preview production build:
 npm run preview
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+## Project info
+
+This project is based on Vue.js 3 and Nuxt 3. With server-sider rendering, the pages can render faster and improve SEO.
+
+`./composables` stores the objects and helper methods.
+`./compoents` stores all the modular Vue components.
+`./pages` stores all pages for this project (currently only index.vue).
+`./assets` stores the css style file and static images.
+
+The CSS Style utilizes the tailwind css framwork, and supports the dark mode. You can check out the page under dark mode by enabling dark mode on your computer or wait until night.
+
+If you have difficulties locating the problem, please check out https://support.google.com/chrome/answer/9275525 .
