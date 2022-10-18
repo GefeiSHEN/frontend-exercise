@@ -79,8 +79,12 @@ const submit = async () => {
         .then(response => response.status == 201 ? alert('Success!') : alert('Failed'))
 }
 
-await fetch("https://frontend-take-home.fetchrewards.com/form")
-    .then(response => response.json())
-    .then(data => formData.value = FormOptionsObjectFromJSONTyped(data))
+let asyncFormData = await useAsyncData<FormOptionsObject>('index/form-data', async () => {
+    let data = await fetch("https://frontend-take-home.fetchrewards.com/form")
+        .then(response => response.json());
+    return FormOptionsObjectFromJSONTyped(data);
+})
+
+formData.value = asyncFormData.data.value;
 
 </script>
