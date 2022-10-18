@@ -34,6 +34,21 @@ import { Ref } from 'vue';
 import { Buffer } from 'buffer'
 import { FormAnswersObject, FormOptionsObject } from '~~/composables';
 
+useHead({
+    title: 'New User Sign Up',
+    meta: [
+        {
+            name: 'description',
+            content: 'A sign up form for new users.'
+        },
+        {
+            name: "keywords",
+            content:
+                "fetch rewards, user, new user, sign up, authenticate",
+        },
+    ],
+})
+
 const formData: Ref<FormOptionsObject> | null = ref(null);
 const occupationOption: Ref<Array<[string, string]>> | null = computed(() => {
     if (!formData) return null;
