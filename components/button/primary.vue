@@ -10,6 +10,10 @@
 import { PropType } from 'vue';
 
 const props = defineProps({
+    /**
+     * Weather the button shall take the entire width avaliable, default to false.
+     * @value true: w-full, false: w-fit
+    */
     block: {
         type: Boolean as PropType<boolean>,
         required: false,
