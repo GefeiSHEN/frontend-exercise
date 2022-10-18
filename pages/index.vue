@@ -4,8 +4,10 @@
         <section class="w-[90vw] max-w-md h-fit m-auto flex flex-col gap-4 ">
             <h1 class="text-3xl font-bold text-black dark:text-blue-100 text-center select-none mt-4">New User Sign Up
             </h1>
-            <form @submit="submit" method="post"
+
+            <form @submit="submit" onsubmit="return false"
                 class="flex flex-col gap-4 justify-center w-full px-6 pt-4 pb-5 mb-4 bg-sky-100 dark:bg-sky-900 rounded-xl">
+
                 <div class="flex flex-col sm:flex-row gap-4">
                     <FormInput require v-model:value="formAnswers.name" option="input" type="text" attribute="name">Full
                         Name
@@ -59,24 +61,24 @@ const stateOption: Ref<Array<[string, string]>> | null = computed(() => {
     else return formData.value.states.map(item => [item.abbreviation, item.name]);
 });
 
-const formAnswers: Ref<FormAnswersObject> = ref({
-    name: '',
-    email: '',
-    password: '',
-    occupation: '',
-    state: '',
-});
+const formAnswers: Ref<FormAnswersObject> = ref(emptyFormAnswersObject());
 
 const submit = async () => {
     formAnswers.value.password = Buffer.from(formAnswers.value.password).toString('base64')
-    await fetch("https://frontend-take-home.fetchrewards.com/form", {
+    let submitResult = await fetch("https://frontend-take-home.fetchrewards.com/form", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(formAnswers.value),
     })
-        .then(response => response.status == 201 ? alert('Success!') : alert('Failed'))
+        .then(response => response.status === 201)
+
+    if (submitResult) {
+        alert('Success!');
+        formAnswers.value = emptyFormAnswersObject();
+    }
+    else alert('Submission Failed, plrease try again.');
 }
 
 let asyncFormData = await useAsyncData<FormOptionsObject>('index/form-data', async () => {

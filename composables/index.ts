@@ -16,6 +16,16 @@ export interface FormAnswersObject {
   state: string;
 }
 
+export function emptyFormAnswersObject(): FormAnswersObject {
+  return {
+    name: "",
+    email: "",
+    password: "",
+    occupation: "",
+    state: "",
+  };
+}
+
 export function FormOptionsObjectFromJSONTyped(json: any): FormOptionsObject {
   if (json === undefined || json === null) {
     return json;
