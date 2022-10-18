@@ -1,29 +1,30 @@
 <template>
-    <section>
-        <h1>User Creation Form</h1>
-        <form @submit="submit" method="post">
-            <label>Full Name</label><br>
-            <input type="text" name="name" v-model="formAnswers.name" required /><br>
-            <label>Email</label><br>
-            <input type="email" name="email" v-model="formAnswers.email" required><br>
-            <label>Password</label><br>
-            <input type="password" name="password" v-model="formAnswers.password" required /><br>
-            <label>Occupation</label><br>
-            <select v-if="formData" name="occupation" v-model="formAnswers.occupation" required>
-                <template v-for="option in formData.occupations">
-                    <option :value="option">{{option}}</option>
-                </template>
-            </select><br>
-            <label>State</label><br>
-            <select v-if="formData" type="text" name="state" v-model="formAnswers.state" required>
-                <template v-for="option in formData.states">
-                    <option :value="option.abbreviation">{{option.name}}</option>
-                </template>
-            </select><br>
-            <button>Submit</button>
-            <ButtonPrimary block>Submit</ButtonPrimary>
-        </form>
-    </section>
+    <div class="h-screen w-screen overflow-x-hidden overflow-y-auto flex place-content-center">
+        <section class="w-[90vw] max-w-md h-fit m-auto flex flex-col gap-4 ">
+            <h1 class="text-3xl font-bold text-center select-none mt-4">New User Sign Up</h1>
+            <form @submit="submit" method="post"
+                class="flex flex-col gap-4 justify-center w-full px-6 pt-4 pb-5 mb-4 bg-sky-100 rounded-xl">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <FormInput require v-model:value="formAnswers.name" option="input" type="text" attribute="name">Full
+                        Name
+                    </FormInput>
+                    <FormInput require v-model:value="formAnswers.email" option="input" type="email" attribute="email">
+                        Email
+                    </FormInput>
+                </div>
+                <FormInput require v-model:value="formAnswers.password" option="input" type="password"
+                    attribute="new-password">Password</FormInput>
+                <FormInput require v-model:value="formAnswers.occupation" option="select"
+                    :select-options="occupationOption" attribute="new-password">
+                    Occupation</FormInput>
+                <FormInput require v-model:value="formAnswers.state" option="select" :select-options="stateOption"
+                    attribute="new-password">
+                    State</FormInput>
+
+                <ButtonPrimary block>Submit</ButtonPrimary>
+            </form>
+        </section>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -32,6 +33,14 @@ import { Buffer } from 'buffer'
 import { FormAnswersObject, FormOptionsObject } from '~~/composables';
 
 const formData: Ref<FormOptionsObject> | null = ref(null);
+const occupationOption: Ref<Array<[string, string]>> | null = computed(() => {
+    if (!formData) return null;
+    else return formData.value.occupations.map((item) => [item, item]);
+});
+const stateOption: Ref<Array<[string, string]>> | null = computed(() => {
+    if (!formData) return null;
+    else return formData.value.states.map(item => [item.abbreviation, item.name]);
+});
 
 const formAnswers: Ref<FormAnswersObject> = ref({
     name: '',
@@ -56,4 +65,5 @@ const submit = async () => {
 await fetch("https://frontend-take-home.fetchrewards.com/form")
     .then(response => response.json())
     .then(data => formData.value = FormOptionsObjectFromJSONTyped(data))
+
 </script>
