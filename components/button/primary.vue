@@ -1,6 +1,6 @@
 <template>
     <button
-        class="px-6 py-2 bg-blue-500 hover:shadow-md active:bg-blue-600 rounded-md font-semibold text-white select-none"
+        class="px-6 py-2 bg-blue-500 dark:bg-blue-700 hover:shadow-md active:bg-blue-600 rounded-md font-semibold text-white select-none"
         :class="[blockClass]">
         <slot />
     </button>

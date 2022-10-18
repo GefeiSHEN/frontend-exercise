@@ -1,12 +1,13 @@
 <template>
     <div class="flex flex-col gap-1">
-        <label class="text-md font-semibold text-sky-900 select-none">
+        <label class="text-md font-semibold text-sky-900 dark:text-sky-100 select-none">
             <slot />
         </label>
         <input v-if="isInput" :type="props.type" :value="props.value" @input="e => onInput(e) "
-            :required="props.require" :autocomplete="props.attribute" class="px-2 h-8 rounded-md" />
+            :required="props.require" :autocomplete="props.attribute"
+            class="px-2 h-8 rounded-md bg-white dark:bg-sky-700 text-black dark:text-sky-50" />
         <select v-else :value="props.value" @input="e => onInput(e)" :required="props.require"
-            class="px-2 h-8 rounded-md select-none">
+            class="px-2 h-8 rounded-md bg-white dark:bg-sky-700 text-black dark:text-sky-50 select-none transition ease-in-out">
             <option value="" disabled selected>Select your option</option>
             <template v-for="option in props.selectOptions">
                 <option :value="option[0]" :id="option[0]">{{option[1]}}</option>
