@@ -21,6 +21,7 @@
                 </template>
             </select><br>
             <button>Submit</button>
+            <ButtonPrimary block>Submit</ButtonPrimary>
         </form>
     </section>
 </template>
