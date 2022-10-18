@@ -8,6 +8,14 @@ export interface FormOptionsObject {
   states: StateObject[];
 }
 
+export interface FormAnswersObject {
+  name: string;
+  email: string;
+  password: string;
+  occupation: string;
+  state: string;
+}
+
 export function FormOptionsObjectFromJSONTyped(json: any): FormOptionsObject {
   if (json === undefined || json === null) {
     return json;
